@@ -1,0 +1,6 @@
+package model;
+
+public enum Genre {
+	ACTION,THRILLER, DRAMA, DOCUMENTARY, CLASSIC, COMEDY, ANIME, ROMANCE, HORROR,HISTORIC;
+
+}

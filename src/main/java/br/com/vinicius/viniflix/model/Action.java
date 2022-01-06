@@ -1,4 +1,4 @@
-package model;
+package br.com.vinicius.viniflix.model;
 
 public enum Action {
 	

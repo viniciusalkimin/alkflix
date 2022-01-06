@@ -2,6 +2,7 @@ package br.com.vinicius.viniflix.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +19,9 @@ public class Movie implements Content{
 	private String name;
 	private Integer timeDuration;
 	private LocalDateTime dataLancamento;
+	@Embedded
 	private Genre genre;
+	@Embedded
 	private StateOfContent stateOfContent = StateOfContent.UNINITIALIZED;
 	public Integer getId() {
 		return id;

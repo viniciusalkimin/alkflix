@@ -2,6 +2,7 @@ package br.com.vinicius.viniflix.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,9 @@ public class Serie implements Content {
 	private Integer numberOfSeasons;
 	private Integer numberOfEpisodies;
 	private LocalDateTime dataLancamento;
+	@Embedded
 	private Genre genre;
+	@Embedded
 	private StateOfContent stateOfContent = StateOfContent.UNINITIALIZED;
 	public Integer getId() {
 		return id;

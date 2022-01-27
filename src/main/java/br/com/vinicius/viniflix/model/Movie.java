@@ -1,9 +1,9 @@
 package br.com.vinicius.viniflix.model;
 
-import java.time.LocalDateTime;
-
-import javax.persistence.Embedded;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,16 +13,18 @@ import javax.persistence.Table;
 @Table(name = "movies")
 public class Movie implements Content{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(name = "name")
 	private String name;
-	private Integer timeDuration;
-	private LocalDateTime dataLancamento;
-	@Embedded
+	
+	@Column(name = "genre")@Enumerated(EnumType.STRING)
 	private Genre genre;
-	@Embedded
+	
+	@Enumerated(EnumType.STRING) @Column(name = "state_of_content")
 	private StateOfContent stateOfContent = StateOfContent.UNINITIALIZED;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -35,18 +37,7 @@ public class Movie implements Content{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getTimeDuration() {
-		return timeDuration;
-	}
-	public void setTimeDuration(Integer timeDuration) {
-		this.timeDuration = timeDuration;
-	}
-	public LocalDateTime getDataLancamento() {
-		return dataLancamento;
-	}
-	public void setDataLancamento(LocalDateTime dataLancamento) {
-		this.dataLancamento = dataLancamento;
-	}
+
 	public Genre getGenre() {
 		return genre;
 	}

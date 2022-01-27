@@ -1,2 +1,2 @@
 # alkflix
-Personal project, using Java, Spring e MySQL.
+Personal project, using Java, Spring and H2 Database.

@@ -11,4 +11,6 @@ import br.com.vinicius.viniflix.model.Serie;
 public interface SerieRepository extends JpaRepository<Serie, Integer> {
 
     Page<Serie> findByName(String name, Pageable pagination);
+
+    void findByName(String name);
 }

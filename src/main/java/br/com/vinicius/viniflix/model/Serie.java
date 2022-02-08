@@ -1,5 +1,8 @@
 package br.com.vinicius.viniflix.model;
 
+import br.com.vinicius.viniflix.dto.SerieDto;
+import org.springframework.data.domain.Page;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -67,5 +70,6 @@ public class Serie implements Content {
 	public void setStateOfContent(StateOfContent stateOfContent) {
 		this.stateOfContent = stateOfContent;
 	}
+
 
 }

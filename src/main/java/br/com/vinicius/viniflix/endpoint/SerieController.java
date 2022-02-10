@@ -1,19 +1,16 @@
 package br.com.vinicius.viniflix.endpoint;
 
-import br.com.vinicius.viniflix.Service.SerieService;
+import br.com.vinicius.viniflix.service.SerieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import br.com.vinicius.viniflix.dto.SerieDto;
 import br.com.vinicius.viniflix.model.Serie;
-import br.com.vinicius.viniflix.repository.SerieRepository;
 
 import javax.validation.Valid;
 import java.util.List;

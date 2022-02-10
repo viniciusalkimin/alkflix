@@ -1,11 +1,13 @@
 package br.com.vinicius.viniflix.endpoint;
 
+import br.com.vinicius.viniflix.Service.SerieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,53 +24,36 @@ import java.util.Optional;
 public class SerieController {
 
     @Autowired
-    private SerieRepository serieRepository;
+    private SerieService serieService;
 
     @GetMapping
-    public Page<SerieDto> listSeries(@RequestParam(required = false) String nameSerie,@PageableDefault(sort = "id", direction = Sort.Direction.ASC, size = 5, page = 0) Pageable pagination) {
-        //Page<SerieDto> dto = list.map(SerieDto::new);
-        //return dto;
-        //return SerieDto.converter(list);
-        if (nameSerie != null) {
-            Page<Serie> list = serieRepository.findByName(nameSerie, pagination);
-            return SerieDto.converter(list);
-        } else {
-            Page<Serie> list = serieRepository.findAll(pagination);
-            return SerieDto.converter(list);
-        }
+    public Page<SerieDto> listSeries(@RequestParam(required = false) String nameSerie, @PageableDefault(sort = "id", direction = Sort.Direction.ASC, size = 5, page = 0) Pageable pagination) {
+        return serieService.listSeries(nameSerie, pagination);
     }
 
-	@GetMapping("/{id}")
-	public Optional<SerieDto> listSeries(@PathVariable Integer id){
-	    Optional<Serie> serie = serieRepository.findById(id);
-        Optional<SerieDto> serieDto = serie.map(e -> new SerieDto(e));
-
-        return serieDto;
-	}
+    @GetMapping("/{id}")
+    public Optional<SerieDto> listSeries(@PathVariable Integer id) {
+        return serieService.serieById(id);
+    }
 
     @PostMapping
-    public ResponseEntity<Serie> newSerie (@RequestBody @Valid Serie serie){
-        serieRepository.save(serie);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<SerieDto> newSerie(@RequestBody @Valid Serie serie) {
+        return serieService.saveSerie(serie);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Serie> updateSerie(@PathVariable Integer id, @RequestBody SerieDto serieDto){
-        Optional<Serie> optional = serieRepository.findById(id);
-        if (optional.isPresent()) {
-            Serie newSerie = serieDto.update(id,serieRepository);
-            serieRepository.save(newSerie);
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<SerieDto> updateSerie(@PathVariable Integer id, @RequestBody SerieDto serieDto) {
+        return serieService.updateSerie(id, serieDto);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<SerieDto> deleteById(@PathVariable Integer id){
+        return serieService.deleteOne(id);
+    }
 
     @GetMapping("/all")
-    public List<Serie> all(){
-        return serieRepository.findAll();
+    public List<Serie> all() {
+        return serieService.all();
     }
-
-
 }
 

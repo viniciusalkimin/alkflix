@@ -1,41 +1,47 @@
 package br.com.vinicius.viniflix.dto;
 
-import br.com.vinicius.viniflix.repository.SerieRepository;
-import org.springframework.data.domain.Page;
-
 import br.com.vinicius.viniflix.model.Genre;
-import br.com.vinicius.viniflix.model.Serie;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
-@Data@AllArgsConstructor
+import javax.validation.constraints.NotBlank;
+
+
 public class SerieDto {
+    @NotBlank
+    private String name;
+    @NotBlank
+    private Integer numberOfSeasons;
+    @NotBlank
+    private Genre genre;
 
-	private Integer id;
-	private String name;
-	private Integer numberOfSeasons;
-	private Genre genre;
 
-	
-	public SerieDto(Serie serie) {
-		this.id = serie.getId();
-		this.name = serie.getName();
-		this.numberOfSeasons = serie.getNumberOfSeasons();
-		this.genre = serie.getGenre();
-	}
-	
-	public static Page<SerieDto> converter(Page<Serie>listaSerie){
-		return listaSerie.map(SerieDto::new);
-	}
+    public SerieDto(String name, Integer numberOfSeasons, Genre genre) {
 
-	public Serie update(Integer id, SerieRepository repository) {
-		Serie serie = repository.getOne(id);
+        this.name = name;
+        this.numberOfSeasons = numberOfSeasons;
+        this.genre = genre;
+    }
 
-		serie.setName(this.name);
-		serie.setGenre(this.genre);
-		serie.setNumberOfSeasons(this.numberOfSeasons);
+    public String getName() {
+        return name;
+    }
 
-		return serie;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public Integer getNumberOfSeasons() {
+        return numberOfSeasons;
+    }
+
+    public void setNumberOfSeasons(Integer numberOfSeasons) {
+        this.numberOfSeasons = numberOfSeasons;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
 }

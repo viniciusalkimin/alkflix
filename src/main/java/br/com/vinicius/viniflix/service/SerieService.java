@@ -3,11 +3,12 @@ package br.com.vinicius.viniflix.service;
 import br.com.vinicius.viniflix.dto.SerieDto;
 import br.com.vinicius.viniflix.model.Serie;
 import br.com.vinicius.viniflix.repository.SerieRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,44 +18,30 @@ public class SerieService {
     @Autowired
     private SerieRepository repository;
 
-    public Page<SerieDto> listSeries(String nameSerie, Pageable pagination) {
+    public Page<Serie> listSeries(String nameSerie, Pageable pagination) {
 
         if (nameSerie != null) {
-            Page<Serie> list = repository.findByName(nameSerie, pagination);
-            return SerieDto.converter(list);
-        } else {
-            Page<Serie> list = repository.findAll(pagination);
-            return SerieDto.converter(list);
+            return repository.findByName(nameSerie, pagination);
         }
+        return repository.findAll(pagination);
     }
 
-    public Optional<SerieDto> serieById(Integer id) {
-        Optional<Serie> serie = repository.findById(id);
-        Optional<SerieDto> serieDto = serie.map(e -> new SerieDto(e));
-        return serieDto;
+    public Optional<Serie> serieById(Integer id) {
+        return repository.findById(id);
     }
 
-    public ResponseEntity<SerieDto> saveSerie(Serie serie) {
-        repository.save(serie);
-        return ResponseEntity.ok().build();
+    public Serie saveSerie(SerieDto serieDto) {
+        var serie = new Serie();
+        BeanUtils.copyProperties(serieDto, serie);
+        return repository.save(serie);
     }
 
-    public ResponseEntity<SerieDto> updateSerie(Integer id, SerieDto serieDto){
-        Optional<Serie> optional = repository.findById(id);
-        if (optional.isPresent()) {
-            Serie newSerie = serieDto.update(id, repository);
-            repository.save(newSerie);
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
+    public Serie updateSerie(Serie serie) {
+        return repository.save(serie);
     }
 
-    public ResponseEntity<SerieDto> deleteOne(Integer id) {
-        if(repository.findById(id).isPresent()) {
-            repository.deleteById(id);
-            return ResponseEntity.ok().build();
-        }else
-          return ResponseEntity.notFound().build();
+    public void deleteOne(Serie serie) {
+        repository.delete(serie);
     }
 
     public List<Serie> all() {

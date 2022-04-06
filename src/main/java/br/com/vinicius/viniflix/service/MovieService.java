@@ -1,12 +1,10 @@
 package br.com.vinicius.viniflix.service;
 
-import br.com.vinicius.viniflix.dto.MovieDto;
 import br.com.vinicius.viniflix.model.Movie;
 import br.com.vinicius.viniflix.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,48 +16,33 @@ public class MovieService {
     @Autowired
     private MovieRepository repository;
 
-    public Page<MovieDto> listMovies(String nameMovie, Pageable pagination) {
+    public Page<Movie> listMovies(String nameMovie, Pageable pagination) {
 
         if (nameMovie != null) {
-            Page<Movie> list = repository.findByName(nameMovie, pagination);
-            return MovieDto.converter(list);
+            return repository.findByName(nameMovie, pagination);
         } else {
-            Page<Movie> list = repository.findAll(pagination);
-            return MovieDto.converter(list);
+            return repository.findAll(pagination);
         }
     }
 
-    public Optional<MovieDto> movieById(Integer id) {
-        Optional<Movie> serie = repository.findById(id);
-        Optional<MovieDto> movieDto = serie.map(e -> new MovieDto(e));
-        return movieDto;
+    public Optional<Movie> movieById(Integer id) {
+        return repository.findById(id);
     }
 
-    public ResponseEntity<MovieDto> saveMovie(Movie movie) {
-        repository.save(movie);
-        return ResponseEntity.ok().build();
+
+    public Movie saveMovie(Movie movie) {
+        return repository.save(movie);
     }
 
-    public ResponseEntity<MovieDto> updateMovie(Integer id, MovieDto movieDto){
-        Optional<Movie> optional = repository.findById(id);
-        if (optional.isPresent()) {
-            Movie newMovie = movieDto.update(id, repository);
-            repository.save(newMovie);
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
+    public Movie updateMovie(Movie movie) {
+        return repository.save(movie);
     }
 
-    public ResponseEntity<MovieDto> deleteOne(Integer id) {
-        if(repository.findById(id).isPresent()) {
-            repository.deleteById(id);
-            return ResponseEntity.ok().build();
-        }else
-            return ResponseEntity.notFound().build();
+    public void deleteOne(Movie movie) {
+        repository.delete(movie);
     }
 
     public List<Movie> all() {
         return repository.findAll();
     }
-
 }

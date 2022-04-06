@@ -1,7 +1,5 @@
 package br.com.vinicius.viniflix.endpoint;
 
-import br.com.vinicius.viniflix.dto.MovieDto;
-import br.com.vinicius.viniflix.dto.SerieDto;
 import br.com.vinicius.viniflix.model.Movie;
 import br.com.vinicius.viniflix.model.Serie;
 import br.com.vinicius.viniflix.service.MovieService;
@@ -10,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,28 +24,38 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping
-    public Page<MovieDto> listSeries(@RequestParam(required = false) String nameMovie, @PageableDefault(sort = "id", direction = Sort.Direction.ASC, size = 5, page = 0) Pageable pagination) {
-        return movieService.listMovies(nameMovie, pagination);
+    public ResponseEntity<Page<Movie>> listSeries(@RequestParam(required = false) String nameMovie,
+                                                  @PageableDefault(sort = "id", direction = Sort.Direction.ASC, size = 5, page = 0) Pageable pagination) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(movieService.listMovies(nameMovie, pagination));
     }
 
     @GetMapping("/{id}")
-    public Optional<MovieDto> listSeries(@PathVariable Integer id) {
-        return movieService.movieById(id);
+    public ResponseEntity<Object> getOneMovie(@PathVariable Integer id) {
+        Optional<Movie> movie = movieService.movieById(id);
+        if (!movie.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Movie Not Found!");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(movie);
     }
 
     @PostMapping
-    public ResponseEntity<MovieDto> newMovie(@RequestBody @Valid Movie movie) {
-        return movieService.saveMovie(movie);
+    public ResponseEntity<Movie> newMovie(@RequestBody Movie movie) {
+        return ResponseEntity.status(HttpStatus.OK).body(movieService.saveMovie(movie));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<MovieDto> updateMovie(@PathVariable Integer id, @RequestBody MovieDto movieDto) {
-        return movieService.updateMovie(id, movieDto);
+    @PutMapping
+    public ResponseEntity<Movie> updateMovie(@RequestBody Movie movie) {
+        return ResponseEntity.status(HttpStatus.OK).body(movieService.updateMovie(movie));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<MovieDto> deleteById(@PathVariable Integer id){
-        return movieService.deleteOne(id);
+    public ResponseEntity<Object> deleteById(@PathVariable Integer id) {
+        Movie movie = movieService.movieById(id).get();
+        if (movie == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Movie not found!");
+        }
+        movieService.deleteOne(movie);
+        return ResponseEntity.status(HttpStatus.OK).body("Movie deleted!");
     }
 
     @GetMapping("/all")

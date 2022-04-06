@@ -1,16 +1,16 @@
 package br.com.vinicius.viniflix.endpoint;
 
+import br.com.vinicius.viniflix.dto.SerieDto;
+import br.com.vinicius.viniflix.model.Serie;
 import br.com.vinicius.viniflix.service.SerieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import br.com.vinicius.viniflix.dto.SerieDto;
-import br.com.vinicius.viniflix.model.Serie;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -24,28 +24,38 @@ public class SerieController {
     private SerieService serieService;
 
     @GetMapping
-    public Page<SerieDto> listSeries(@RequestParam(required = false) String nameSerie, @PageableDefault(sort = "id", direction = Sort.Direction.ASC, size = 5, page = 0) Pageable pagination) {
-        return serieService.listSeries(nameSerie, pagination);
+    public ResponseEntity<Page<Serie>> listSeries(@RequestParam(required = false) String nameSerie,
+                                                  @PageableDefault(sort = "id", direction = Sort.Direction.ASC, size = 5, page = 0) Pageable pagination) {
+        return ResponseEntity.status(HttpStatus.OK).body(serieService.listSeries(nameSerie, pagination));
     }
 
     @GetMapping("/{id}")
-    public Optional<SerieDto> listSeries(@PathVariable Integer id) {
-        return serieService.serieById(id);
+    public ResponseEntity<Object> getOneSerie(@PathVariable Integer id) {
+        Optional<Serie> serie = serieService.serieById(id);
+        if (!serie.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Serie Not Found!");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(serie);
     }
 
     @PostMapping
-    public ResponseEntity<SerieDto> newSerie(@RequestBody @Valid Serie serie) {
-        return serieService.saveSerie(serie);
+    public ResponseEntity<Serie> newSerie(@RequestBody SerieDto serieDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(serieService.saveSerie(serieDto));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<SerieDto> updateSerie(@PathVariable Integer id, @RequestBody SerieDto serieDto) {
-        return serieService.updateSerie(id, serieDto);
+    @PutMapping
+    public ResponseEntity<Serie> updateSerie(@RequestBody Serie serie) {
+        return ResponseEntity.status(HttpStatus.OK).body(serieService.updateSerie(serie));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<SerieDto> deleteById(@PathVariable Integer id){
-        return serieService.deleteOne(id);
+    public ResponseEntity<Object> deleteById(@PathVariable Integer id) {
+        Serie serie = serieService.serieById(id).get();
+        if ( serie == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Serie Not Found!");
+        }
+        serieService.deleteOne(serie);
+        return ResponseEntity.status(HttpStatus.OK).body("Serie deleted!");
     }
 
     @GetMapping("/all")

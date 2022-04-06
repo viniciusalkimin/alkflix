@@ -1,0 +1,14 @@
+
+b	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ù‰£Ô8úâúãÿ/
+‰
+java:S1130"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(ù‰£Ô8ıâúãÿ/
+[
+java:S4684*"@Replace this persistent entity with a simple POJO or DTO object.(…·”¦øÿÿÿÿ
+U
+java:S4684/"@Replace this persistent entity with a simple POJO or DTO object.(š—Å
+c
+java:S1128"ARemove this unused import 'br.com.vinicius.viniflix.model.Serie'.(µô¼üÿÿÿÿ8™š‚äÿ/
+U
+java:S1128"3Remove this unused import 'javax.validation.Valid'.(æ¤ñ÷úÿÿÿÿ8Ôóäÿ/
+r
+java:S36555"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(àçƒÒÿÿÿÿÿ8ˆãúãÿ/

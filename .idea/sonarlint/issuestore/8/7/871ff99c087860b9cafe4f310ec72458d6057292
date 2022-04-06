@@ -1,0 +1,7 @@
+
+b
+java:S4684/"@Replace this persistent entity with a simple POJO or DTO object.(“ížµÿÿÿÿÿ8úÔàßÿ/
+U
+java:S1128"3Remove this unused import 'javax.validation.Valid'.(æ¤ñ÷úÿÿÿÿ8Ÿ²ýáÿ/
+r
+java:S36555"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(Ø—ƒ‹ýÿÿÿÿ8ÒŒ®ßÿ/

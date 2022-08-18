@@ -32,6 +32,13 @@
 
 	<dependencies>
 
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
 		<!-- Spring Boot Starter -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -101,8 +108,19 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>RELEASE</version>
+			<scope>test</scope>
+		</dependency>
 
-    </dependencies>
+	</dependencies>
 
 
 </project>

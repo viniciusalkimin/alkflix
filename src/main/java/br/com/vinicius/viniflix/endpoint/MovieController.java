@@ -1,8 +1,10 @@
 package br.com.vinicius.viniflix.endpoint;
 
+import br.com.vinicius.viniflix.dto.MovieDto;
 import br.com.vinicius.viniflix.model.Movie;
 import br.com.vinicius.viniflix.model.Serie;
 import br.com.vinicius.viniflix.service.MovieService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,10 +19,10 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/movies")
 public class MovieController {
 
-    @Autowired
     private MovieService movieService;
 
     @GetMapping
@@ -39,13 +41,13 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<Movie> newMovie(@RequestBody Movie movie) {
-        return ResponseEntity.status(HttpStatus.OK).body(movieService.saveMovie(movie));
+    public ResponseEntity<Movie> newMovie(@RequestBody MovieDto movieDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(movieService.saveMovie(movieDto));
     }
 
     @PutMapping
-    public ResponseEntity<Movie> updateMovie(@RequestBody Movie movie) {
-        return ResponseEntity.status(HttpStatus.OK).body(movieService.updateMovie(movie));
+    public ResponseEntity<Movie> updateMovie(@RequestBody MovieDto movieDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(movieService.updateMovie(movieDto));
     }
 
     @DeleteMapping("/{id}")

@@ -3,6 +3,7 @@ package br.com.vinicius.viniflix.endpoint;
 import br.com.vinicius.viniflix.dto.SerieDto;
 import br.com.vinicius.viniflix.model.Serie;
 import br.com.vinicius.viniflix.service.SerieService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,10 +18,10 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/series")
 public class SerieController {
 
-    @Autowired
     private SerieService serieService;
 
     @GetMapping
@@ -44,8 +45,8 @@ public class SerieController {
     }
 
     @PutMapping
-    public ResponseEntity<Serie> updateSerie(@RequestBody Serie serie) {
-        return ResponseEntity.status(HttpStatus.OK).body(serieService.updateSerie(serie));
+    public ResponseEntity<Serie> updateSerie(@RequestBody SerieDto serieDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(serieService.updateSerie(serieDto));
     }
 
     @DeleteMapping("/{id}")

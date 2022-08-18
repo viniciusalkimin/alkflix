@@ -3,6 +3,7 @@ package br.com.vinicius.viniflix.service;
 import br.com.vinicius.viniflix.dto.SerieDto;
 import br.com.vinicius.viniflix.model.Serie;
 import br.com.vinicius.viniflix.repository.SerieRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,8 +15,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class SerieService {
-    @Autowired
+
     private SerieRepository repository;
 
     public Page<Serie> listSeries(String nameSerie, Pageable pagination) {
@@ -36,7 +38,9 @@ public class SerieService {
         return repository.save(serie);
     }
 
-    public Serie updateSerie(Serie serie) {
+    public Serie updateSerie(SerieDto serieDto) {
+        var serie = new Serie();
+        BeanUtils.copyProperties(serieDto, serie);
         return repository.save(serie);
     }
 

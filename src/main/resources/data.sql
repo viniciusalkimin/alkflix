@@ -11,3 +11,6 @@ INSERT INTO MOVIES(name, genre, state_of_content) VALUES ('SHUTTER ISLAND', 'THR
 INSERT INTO MOVIES(name, genre, state_of_content) VALUES ('THE PUNISHER', 'ACTION', 'UNINITIALIZED');
 INSERT INTO MOVIES(name, genre, state_of_content) VALUES ('THE HURT LOCKER', 'ACTION', 'UNINITIALIZED');
 INSERT INTO MOVIES(name, genre, state_of_content) VALUES ('PAPER CLIPS', 'DOCUMENTARY', 'UNINITIALIZED');
+
+-- senha : 123456
+INSERT INTO USERS VALUES (1, 'ana.souza@voll.med', '$2a$10$Y50UaMFOxteibQEYLrwuHeehHYfcoafCopUazP12.rqB41bsolF5.');

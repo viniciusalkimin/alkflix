@@ -1,4 +1,4 @@
-package br.com.vinicius.viniflix.service;
+package br.com.vinicius.viniflix.security;
 
 import br.com.vinicius.viniflix.repository.UserRepository;
 import lombok.AllArgsConstructor;

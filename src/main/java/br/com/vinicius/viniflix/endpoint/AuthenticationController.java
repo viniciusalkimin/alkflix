@@ -1,6 +1,8 @@
 package br.com.vinicius.viniflix.endpoint;
 
 import br.com.vinicius.viniflix.model.AuthenticationsData;
+import br.com.vinicius.viniflix.model.User;
+import br.com.vinicius.viniflix.service.TokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,12 +19,14 @@ public class AuthenticationController {
 
     private AuthenticationManager manager;
 
-    @PostMapping
-    public ResponseEntity efetuarLogin(@RequestBody @Valid AuthenticationsData data) {
-        var token = new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());
-        var authentication = manager.authenticate(token);
+    private TokenService tokenService;
 
-        return ResponseEntity.ok().build();
+    @PostMapping
+    public ResponseEntity doLogin(@RequestBody @Valid AuthenticationsData data) {
+        var authenticationTokenoken = new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());
+        var authentication = manager.authenticate(authenticationTokenoken);
+
+        return ResponseEntity.ok(tokenService.tokenGenerator((User) authentication.getPrincipal()));
     }
 
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {

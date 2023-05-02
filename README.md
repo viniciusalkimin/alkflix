@@ -23,6 +23,7 @@ Mapped to: `{localhost:8080}/movies`
 
 ### List All Movies
 -Method: `GET`
--Return: `Page of Movies`
+
+-Return: `Page of Movies(OrderedBy= id, Size=5)`
 
  

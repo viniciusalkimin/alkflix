@@ -1,7 +1,7 @@
 # alkflix
 Personal project, using Java, Spring and H2 Database.
 
-###Stack:
+### Stack:
 `-Java11`
 `-SpringBoot.2.7.10'`
 `-Maven`

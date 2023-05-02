@@ -18,5 +18,10 @@ Personal project, using Java, Spring and H2 Database.
 
 ## EndPoints for Movies:
 Mapped to: `{localhost:8080}/movies`
-#### Resources:
+#### Resources
+
+# List All Movies
+-Method: `GET`
+-Return: `Page of Movies
+
  

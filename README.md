@@ -24,6 +24,12 @@ Mapped to: `{localhost:8080}/movies`
 ### List All Movies
 -Method: `GET`
 
--Return: `Page of Movies(OrderedBy= id, Size=5)`
+-Return: `Page of Movies(OrderedBy=id, Size=5)`
+
+### Get One Movie
+-Method: `GET/{id}`
+
+-Return: `ResponseEntityofMovie`
+
 
  

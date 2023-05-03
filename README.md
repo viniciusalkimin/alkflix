@@ -21,15 +21,22 @@ Mapped to: `{localhost:8080}/movies`
 
 ## Resources
 
-### List All Movies
+### List All
 -Method: `GET`
 
 -Return: `Page of Movies(OrderedBy=id, Size=5)`
 
-### Get One Movie
+### Get One 
 -Method: `GET/{id}`
 
--Return: `ResponseEntityofMovie`
+-Return: `ResponseEntity with the Movie`
+
+### New
+-Method: `POST`
+
+-ContentOfBody: `Movie`
+
+-Return: `ResponseEntity with the Movie`
 
 
  

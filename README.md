@@ -13,7 +13,7 @@ Personal project, using Java, Spring and H2 Database.
 
 #### For any request is needed authentication on endpoint `'/login'` using the datas: `Username: adm@alkflix.com`, `Password: 123456` for generation of a JWT Token.
 
-## EndPoints for Movies:
+## EndPoint for Movies:
 Mapped to: `{localhost:8080}/movies`
 
 ## Resources
@@ -51,7 +51,7 @@ Mapped to: `{localhost:8080}/movies`
 
 
 
-## EndPoints for Series:
+## EndPoint for Series:
 Mapped to: `{localhost:8080}/series`
 
 ## Resources

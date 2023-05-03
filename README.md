@@ -31,8 +31,22 @@ Mapped to: `{localhost:8080}/movies`
 
 -Return: `ResponseEntity with the Movie`
 
+
+### Delete One 
+-Method: `DELETE/{id}`
+
+-Return: `ResponseEntity with the Movie`
+
 ### New
 -Method: `POST`
+
+-ContentOfBody: `Movie`
+
+-Return: `ResponseEntity HTTP Status OK`
+
+
+### Update
+-Method: `PUT`
 
 -ContentOfBody: `Movie`
 

@@ -42,7 +42,7 @@ Mapped to: `{localhost:8080}/movies`
 
 -ContentOfBody: `Movie`
 
--Return: `ResponseEntity HTTP Status OK`
+-Return: `ResponseEntity with HTTP Status OK`
 
 
 ### Update
@@ -52,5 +52,42 @@ Mapped to: `{localhost:8080}/movies`
 
 -Return: `ResponseEntity with the Movie`
 
+
+
+## EndPoints for Series:
+Mapped to: `{localhost:8080}/series`
+
+## Resources
+
+### List All
+-Method: `GET`
+
+-Return: `Page of Series(OrderedBy=id, Size=5)`
+
+### Get One 
+-Method: `GET/{id}`
+
+-Return: `ResponseEntity with the Serie`
+
+
+### Delete One 
+-Method: `DELETE/{id}`
+
+-Return: `ResponseEntity with the Serie`
+
+### New
+-Method: `POST`
+
+-ContentOfBody: `Serie`
+
+-Return: `ResponseEntity with HTTP Status OK`
+
+
+### Update
+-Method: `PUT`
+
+-ContentOfBody: `Serie`
+
+-Return: `ResponseEntity with the Serie`
 
  
